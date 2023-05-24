@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product List</title>
+  </head>
+  <style>
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 20px 0;
+      border: 1px solid #b3afaf;
+      padding: 20px;
+      background-color: rgb(247, 245, 245);
+      box-shadow: 2px 2px 3px 3px gray;
+      border-radius: 10px;
+    }
+
+    h2 {
+     color: rgb(5, 5, 66);
+    }
+    p{
+        color:  rgb(4, 41, 4);
+    }
+    .main{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    h1{
+        color: rgb(22, 11, 122);
+        text-align: center;
+        text-decoration: underline;
+    }
+  </style>
+  <body>
+    <h1>Get Product Details Here</h1>
+    <div class="main">
+    <ul id="product-list"></ul>
+    </div>
+    <script>
+        
+
+
+        fetch('https://dummyjson.com/products')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    const pdt = document.getElementById('product-list');
+    let myHtml = '';
+
+    data.products.forEach(product => {
+      myHtml += `
+        <li>
+          <img src="${product.thumbnail}" alt="${product.title}" />
+          <br><br>
+          <h2>${product.title}</h2>
+          <p>${product.brand}</p>
+          <p>Category: ${product.category}</p>
+          <p>Price: $${product.price}</p>
+          <p>Rating: ${product.rating}</p>
+          <p>Stock: ${product.stock}</p>
+        </li>
+      `;
+    });
+    pdt.innerHTML = myHtml; 
+  })
+  .catch(err => {
+    console.error("Error:", err);
+  });
+
+    </script>
+  </body>
+</html>
